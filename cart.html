@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang Belanja - FashionHub</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cart-container {
+            min-height: 500px;
+            padding: 40px 20px;
+        }
+
+        .cart-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ff5252;
+        }
+
+        .cart-summary {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin-left: auto;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .summary-total {
+            border-top: 2px solid var(--primary-color);
+            padding-top: 15px;
+            font-weight: bold;
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .checkout-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .checkout-buttons button {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .btn-checkout {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-checkout:hover {
+            background-color: #3db8af;
+        }
+
+        .btn-continue {
+            background-color: #999;
+        }
+
+        .btn-continue:hover {
+            background-color: #777;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .empty-cart p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <div class="logo">FashionHub</div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Beranda</a></li>
+                    <li><a href="index.html#products">Produk</a></li>
+                    <li><a href="index.html#about">Tentang</a></li>
+                    <li><a href="index.html#contact">Kontak</a></li>
+                </ul>
+                <div class="cart-icon">
+                    <a href="cart.html">🛒 Keranjang</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cart Section -->
+    <section class="cart-container">
+        <div class="container">
+            <h1>Keranjang Belanja</h1>
+            <div id="cart-items"></div>
+            
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal:</span>
+                    <span id="total-price">Rp 0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Ongkir:</span>
+                    <span>Rp 25.000</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total:</span>
+                    <span id="final-total">Rp 25.000</span>
+                </div>
+                <div class="checkout-buttons">
+                    <button class="btn-checkout" onclick="checkout()">Checkout</button>
+                    <button class="btn-continue" onclick="window.location.href='index.html#products'">Lanjut Belanja</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 FashionHub. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Display cart when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCart();
+            updateFinalTotal();
+        });
+
+        // Update final total (including shipping)
+        function updateFinalTotal() {
+            const totalPrice = document.getElementById('total-price');
+            const finalTotal = document.getElementById('final-total');
+            
+            // Extract price from Rp format
+            const priceText = totalPrice.textContent.replace(/[^0-9]/g, '');
+            const subtotal = parseInt(priceText) || 0;
+            const shipping = 25000;
+            const total = subtotal + shipping;
+            
+            finalTotal.textContent = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        // Override checkout to update total
+        const originalCheckout = checkout;
+        checkout = function() {
+            originalCheckout();
+            updateFinalTotal();
+        };
+
+        // Override removeFromCart to update total
+        const originalRemove = removeFromCart;
+        removeFromCart = function(index) {
+            originalRemove(index);
+            updateFinalTotal();
+        };
+
+        // Override updateQuantity to update total
+        const originalUpdate = updateQuantity;
+        updateQuantity = function(index, newQuantity) {
+            originalUpdate(index, newQuantity);
+            updateFinalTotal();
+        };
+    </script>
+</body>
+</html>
