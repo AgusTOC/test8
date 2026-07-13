@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orbit Lab Sample</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="techno_orbit-lab.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero-card">
+      <p class="micro-label">Web Sample 02</p>
+      <h1>Orbit Lab</h1>
+      <p class="lead-copy">
+        Rotate through experimental interface presets and preview a matching
+        design note. Everything is client-side and framework-free.
+      </p>
+
+      <div class="control-row">
+        <button id="shuffle-btn" class="action-btn" type="button">Shuffle Preset</button>
+      </div>
+
+      <article class="preview-panel" aria-live="polite">
+        <h2 id="preset-name">Start by shuffling</h2>
+        <p id="preset-note">A quick concept note will appear here.</p>
+      </article>
+    </section>
+
+    <section class="history-card">
+      <h2>Recent Presets</h2>
+      <ul id="history-list" class="history-list"></ul>
+      <p id="history-empty" class="history-empty">No presets viewed yet.</p>
+    </section>
+  </main>
+
+  <script src="techno_orbit-lab.js"></script>
+</body>
+</html>
