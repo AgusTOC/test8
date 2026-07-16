@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokoKita — Belanja Mudah, Harga Terbaik</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header>
+    <div class="header-inner">
+      <div class="logo">Toko<span>Kita</span></div>
+
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        <input id="searchInput" type="search" placeholder="Cari produk…" />
+      </div>
+
+      <button id="cartBtnHeader" class="cart-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.4 7h12.8M17 21a1 1 0 100-2 1 1 0 000 2zm-9 0a1 1 0 100-2 1 1 0 000 2z"/>
+        </svg>
+        Keranjang
+        <span id="cartCount" class="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <h1>Belanja Mudah, Harga Terbaik 🛍️</h1>
+    <p>Temukan ribuan produk pilihan dengan kualitas terjamin dan pengiriman cepat ke seluruh Indonesia.</p>
+    <a href="#products" class="hero-cta">Lihat Produk</a>
+  </section>
+
+  <!-- ===== Categories ===== -->
+  <div id="categories" class="categories"></div>
+
+  <!-- ===== Product Section ===== -->
+  <div id="products" class="section-header">
+    <h2>Produk Pilihan</h2>
+    <span id="productCount" class="product-count"></span>
+  </div>
+
+  <div id="productsGrid" class="products-grid"></div>
+
+  <!-- ===== Overlay ===== -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- ===== Cart Sidebar ===== -->
+  <aside id="cartSidebar" class="cart-sidebar" aria-label="Keranjang Belanja">
+    <div class="cart-header">
+      <h2>Keranjang Belanja</h2>
+      <button id="closeCart" class="close-btn" aria-label="Tutup keranjang">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-summary-row">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">Rp 0</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Ongkos kirim</span>
+        <span id="cartShipping">Gratis</span>
+      </div>
+      <div class="cart-total-row">
+        <span>Total</span>
+        <span id="cartTotal">Rp 0</span>
+      </div>
+      <button id="checkoutBtn" class="checkout-btn">Lanjut ke Checkout →</button>
+    </div>
+  </aside>
+
+  <!-- ===== Checkout Modal ===== -->
+  <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="checkoutTitle">Checkout</h2>
+        <button id="closeCheckout" class="close-btn" aria-label="Tutup checkout">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Order Summary -->
+        <div class="order-summary-mini">
+          <h3>Ringkasan Pesanan</h3>
+          <div id="orderSummaryItems"></div>
+          <div class="mini-total">
+            <span>Total Pembayaran</span>
+            <span id="orderSummaryTotal"></span>
+          </div>
+        </div>
+
+        <!-- Buyer Form -->
+        <form id="checkoutForm" novalidate>
+          <div class="form-grid">
+            <div class="form-group full">
+              <label for="name">Nama Lengkap *</label>
+              <input id="name" name="name" type="text" placeholder="Budi Santoso" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Nomor HP *</label>
+              <input id="phone" name="phone" type="tel" placeholder="08xxxxxxxxxx" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" placeholder="budi@email.com" required />
+            </div>
+            <div class="form-group full">
+              <label for="address">Alamat Pengiriman *</label>
+              <textarea id="address" name="address" placeholder="Jalan, nomor, RT/RW, Kelurahan…" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="city">Kota *</label>
+              <input id="city" name="city" type="text" placeholder="Jakarta" required />
+            </div>
+            <div class="form-group">
+              <label for="postal">Kode Pos *</label>
+              <input id="postal" name="postal" type="text" placeholder="12345" required />
+            </div>
+            <div class="form-group full">
+              <label for="payment">Metode Pembayaran *</label>
+              <select id="payment" name="payment" required>
+                <option value="" disabled selected>Pilih metode…</option>
+                <option value="transfer">Transfer Bank</option>
+                <option value="cod">Bayar di Tempat (COD)</option>
+                <option value="wallet">Dompet Digital (GoPay / OVO / Dana)</option>
+                <option value="qris">QRIS</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label for="notes">Catatan (opsional)</label>
+              <textarea id="notes" name="notes" placeholder="Instruksi khusus untuk kurir…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="submit-order-btn">✓ Pesan Sekarang</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Order Confirmation Modal ===== -->
+  <div id="confirmModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h2 id="confirmTitle">Pesanan Berhasil!</h2>
+        <button id="closeConfirm" class="close-btn" aria-label="Tutup">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="confirmation">
+          <div class="confirmation-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+          <h2>Terima Kasih! 🎉</h2>
+          <p>Pesanan Anda telah kami terima dan sedang diproses.</p>
+
+          <div class="order-detail-box">
+            <h3>Detail Pesanan</h3>
+            <div class="order-detail-row">
+              <span>Nomor Pesanan</span>
+              <strong id="orderNum"></strong>
+            </div>
+            <div class="order-detail-row">
+              <span>Nama Pembeli</span>
+              <span id="orderBuyer"></span>
+            </div>
+            <div class="order-detail-row">
+              <span>Tanggal Pesan</span>
+              <span id="orderDate"></span>
+            </div>
+            <div class="order-detail-row">
+              <span>Total Pembayaran</span>
+              <strong id="orderTotalConf"></strong>
+            </div>
+          </div>
+
+          <button id="continueShop" class="continue-btn">Lanjut Belanja</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Toast Container ===== -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>&copy; 2024 <strong>TokoKita</strong> — Belanja Mudah, Harga Terbaik</p>
+    <p style="margin-top:.4rem">Dibuat dengan ❤️ untuk semua pelanggan setia kami</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
