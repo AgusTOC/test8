@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TokoKita – Belanja Mudah & Hemat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container header-inner">
+      <a href="#" class="logo">🛒 TokoKita</a>
+      <nav>
+        <a href="#produk">Produk</a>
+        <a href="#tentang">Tentang</a>
+        <a href="#kontak">Kontak</a>
+      </nav>
+      <button class="cart-btn" id="cartBtn" aria-label="Buka keranjang">
+        🛍️ Keranjang <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Belanja Nyaman,<br/>Harga Terbaik!</h1>
+      <p>Temukan ribuan produk berkualitas dengan pengiriman cepat ke seluruh Indonesia.</p>
+      <a href="#produk" class="btn-primary">Lihat Produk</a>
+    </div>
+  </section>
+
+  <!-- KATEGORI -->
+  <section class="categories container">
+    <h2 class="section-title">Kategori</h2>
+    <div class="cat-grid">
+      <div class="cat-card" data-filter="elektronik">📱 Elektronik</div>
+      <div class="cat-card" data-filter="fashion">👗 Fashion</div>
+      <div class="cat-card" data-filter="rumah">🏠 Rumah</div>
+      <div class="cat-card" data-filter="olahraga">⚽ Olahraga</div>
+      <div class="cat-card" data-filter="">🛒 Semua</div>
+    </div>
+  </section>
+
+  <!-- PRODUK -->
+  <section class="products-section container" id="produk">
+    <h2 class="section-title">Produk Unggulan</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- TENTANG -->
+  <section class="about container" id="tentang">
+    <div class="about-inner">
+      <div class="about-text">
+        <h2>Tentang TokoKita</h2>
+        <p>TokoKita adalah platform belanja online yang menyediakan produk-produk berkualitas dari berbagai kategori. Kami berkomitmen memberikan pengalaman berbelanja terbaik dengan layanan pelanggan yang responsif dan pengiriman yang terpercaya.</p>
+        <ul class="about-list">
+          <li>✅ Produk original & bergaransi</li>
+          <li>✅ Pengiriman ke seluruh Indonesia</li>
+          <li>✅ Pembayaran aman & terpercaya</li>
+          <li>✅ Layanan pelanggan 24/7</li>
+        </ul>
+      </div>
+      <div class="about-stats">
+        <div class="stat"><span>10.000+</span>Produk</div>
+        <div class="stat"><span>50.000+</span>Pelanggan</div>
+        <div class="stat"><span>99%</span>Kepuasan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KONTAK -->
+  <section class="contact container" id="kontak">
+    <h2 class="section-title">Hubungi Kami</h2>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p>📧 info@tokokita.id</p>
+        <p>📞 0800-1234-5678</p>
+        <p>📍 Jl. Kemerdekaan No. 17, Jakarta</p>
+        <p>🕐 Senin–Sabtu, 08.00–20.00 WIB</p>
+      </div>
+      <form class="contact-form" id="contactForm">
+        <input type="text" placeholder="Nama Anda" required />
+        <input type="email" placeholder="Email Anda" required />
+        <textarea rows="4" placeholder="Pesan Anda..." required></textarea>
+        <button type="submit" class="btn-primary">Kirim Pesan</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <p>© 2024 TokoKita. Semua hak dilindungi.</p>
+      <div class="footer-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat & Ketentuan</a>
+        <a href="#">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>🛍️ Keranjang Belanja</h3>
+      <button class="close-cart" id="closeCart" aria-label="Tutup keranjang">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <p class="cart-empty">Keranjang masih kosong.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">Total: <strong id="cartTotal">Rp 0</strong></div>
+      <button class="btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="checkoutModal">
+      <h3>Informasi Pengiriman</h3>
+      <form id="checkoutForm">
+        <input type="text" id="coName" placeholder="Nama Lengkap" required />
+        <input type="text" id="coPhone" placeholder="Nomor Telepon" required />
+        <input type="text" id="coAddress" placeholder="Alamat Lengkap" required />
+        <select id="coPayment" required>
+          <option value="">-- Pilih Metode Pembayaran --</option>
+          <option value="transfer">Transfer Bank</option>
+          <option value="cod">COD (Bayar di Tempat)</option>
+          <option value="ewallet">E-Wallet (GoPay / OVO / Dana)</option>
+        </select>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" id="cancelCheckout">Batal</button>
+          <button type="submit" class="btn-primary">Pesan Sekarang</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
