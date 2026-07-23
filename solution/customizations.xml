@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  customizations.xml
+  ==================
+  Contains the App Module and Site Map definitions for the
+  "Quote Management" model-driven app targeting D365 CRM / Dataverse.
+
+  Key design decisions
+  ─────────────────────
+  • The standard Dataverse "quote" entity (ObjectTypeCode 1084) is used as-is.
+    No custom entity definition is included; the Quote entity already exists in
+    any D365 Sales / CRM organisation.
+  • AppModuleComponent type="1" schemaName="quote" adds the entire Quote entity
+    to the app, meaning the entity's *default* main form and *default* view are
+    automatically surfaced.  No form/view GUIDs need to be hard-coded, which
+    keeps this solution portable across organisations.
+  • ClientType=4  → Unified Interface (model-driven; required for D365 CRM).
+  • NavigationType=0 → SiteMap-driven navigation.
+  • AppModuleRoles is empty → the app is visible to every user who has at least
+    read access to the Quote entity through their security role.
+-->
+<ImportExportXml version="9.2.24021.170"
+                 SolutionPackageVersion="9.2"
+                 languagecode="1033"
+                 generatedBy="CrmLive"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+  <!-- No custom entity definitions – we rely on the OOB Quote entity -->
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       APP MODULE
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <AppModules>
+    <AppModule>
+      <!--
+        Stable GUID for this app module.  Must remain consistent across all
+        exports/imports of this solution in order to prevent duplicate records.
+      -->
+      <AppModuleId>{5A8F2B4E-3C7D-4A91-B6E8-9D2F1C3A5B7E}</AppModuleId>
+
+      <!-- Friendly name shown in the app switcher and D365 navigation bar -->
+      <Name>Quote Management</Name>
+      <Description>Model-driven app for managing Quotes in D365 CRM</Description>
+
+      <!--
+        UniqueName must start with the publisher prefix.
+        It is referenced in solution.xml RootComponents and in AppModuleSiteMaps.
+      -->
+      <UniqueName>agustoc_QuoteManagementApp</UniqueName>
+      <IntroducedVersion>1.0.0.0</IntroducedVersion>
+      <AppModuleVersion>1.0.0.0</AppModuleVersion>
+
+      <!--
+        ClientType=4 → Unified Interface / model-driven (required for D365 CRM).
+        Legacy value 2 would target the deprecated Classic web client.
+      -->
+      <ClientType>4</ClientType>
+
+      <!-- NavigationType=0 → use the SiteMap defined in AppModuleSiteMaps -->
+      <NavigationType>0</NavigationType>
+
+      <!-- WelcomePageContentType=0 → no custom welcome page -->
+      <WelcomePageContentType>0</WelcomePageContentType>
+
+      <IsDefault>0</IsDefault>
+      <PublisherCustomizationPrefix>agustoc</PublisherCustomizationPrefix>
+
+      <LocalizedNames>
+        <LocalizedName description="Quote Management" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Model-driven app for managing Quotes in D365 CRM" languagecode="1033" />
+      </Descriptions>
+
+      <!--
+        AppModuleComponents
+        ────────────────────
+        type="1"  schemaName="quote"
+          Adds the standard Quote entity.  Dataverse will include the entity's
+          active main form (Main form type) and default public view
+          ("Active Quotes") automatically.
+          To pin specific forms/views, add additional entries:
+            type="60" objectId="{FORM-GUID}"   ← SystemForm  (main form)
+            type="26" objectId="{VIEW-GUID}"   ← SavedQuery  (view)
+          Those GUIDs are org-specific and can be found in the maker portal
+          under Tables → Quote → Forms / Views.
+      -->
+      <AppModuleComponents>
+        <AppModuleComponent type="1" schemaName="quote" behavior="0" />
+      </AppModuleComponents>
+
+      <!-- Link this app to its site map (defined below) -->
+      <AppModuleSiteMaps>
+        <AppModuleSiteMap siteMapUniqueName="agustoc_QuoteManagementApp_sitemap" />
+      </AppModuleSiteMaps>
+
+      <!--
+        AppModuleRoles – leave empty to grant access to ALL security roles
+        that have read permission on the Quote entity.
+        To restrict, add:
+          <AppModuleRole roleName="Salesperson" />
+      -->
+      <AppModuleRoles />
+
+    </AppModule>
+  </AppModules>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SITE MAP
+       ═══════════════════════════════════════════════════════════════════════ -->
+  <SiteMaps>
+    <SiteMap>
+      <!--
+        Stable GUID for this site map – must remain consistent across exports.
+      -->
+      <SiteMapId>{7B9E4D2A-6F1C-4B83-A5D7-2E8C4F6A1B9D}</SiteMapId>
+
+      <Name>Quote Management App Site Map</Name>
+
+      <!--
+        UniqueName must match the siteMapUniqueName in AppModuleSiteMaps above.
+        IsAppAware=1 marks it as a per-app site map (not the global CRM sitemap).
+      -->
+      <UniqueName>agustoc_QuoteManagementApp_sitemap</UniqueName>
+      <IsAppAware>1</IsAppAware>
+
+      <Entity name="SiteMap">
+        <SiteMapNodes>
+
+          <!--
+            Area: top-level navigation group in the left rail.
+            ShowGroups="true" renders the group header.
+          -->
+          <Area Id="QuoteArea"
+                ShowGroups="true"
+                ResourceId=""
+                DescriptionResourceId="">
+            <Titles>
+              <Title LCID="1033" Title="Quotes" />
+            </Titles>
+            <Descriptions>
+              <Description LCID="1033" Description="Quote management area" />
+            </Descriptions>
+
+            <!--
+              Group: collapsible section inside the area.
+            -->
+            <Group Id="QuoteGroup" IsProfile="false">
+              <Titles>
+                <Title LCID="1033" Title="Quotes" />
+              </Titles>
+
+              <!--
+                SubArea: the actual navigation link.
+                Entity="quote" → the unified interface uses the default view
+                  ("Active Quotes") as the landing grid, and the default main
+                  form when opening a record.
+                AvailableOffline="true" → available in the mobile offline profile.
+              -->
+              <SubArea Id="nav_quote"
+                       Entity="quote"
+                       AvailableOffline="true"
+                       PassParams="false"
+                       Sku="All">
+                <Titles>
+                  <Title LCID="1033" Title="Quotes" />
+                </Titles>
+                <Descriptions>
+                  <Description LCID="1033" Description="View and manage quotes" />
+                </Descriptions>
+              </SubArea>
+
+            </Group>
+          </Area>
+
+        </SiteMapNodes>
+      </Entity>
+    </SiteMap>
+  </SiteMaps>
+
+</ImportExportXml>

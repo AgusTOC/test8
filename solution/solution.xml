@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24021.170"
+                 SolutionPackageVersion="9.2"
+                 languagecode="1033"
+                 generatedBy="CrmLive"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>QuoteModelDrivenApp</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Quote Model Driven App" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Model-driven app for managing Quotes in D365 CRM using main form and default view" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <!--
+      Managed=0  → unmanaged solution (can be edited after import).
+      Change to 1 for a managed/locked deployment.
+    -->
+    <Managed>0</Managed>
+    <Publisher>
+      <!--
+        Custom publisher "AgusTOC Publisher".
+        The prefix "agustoc" is prepended to every custom component created
+        by this solution (app unique-name, site-map unique-name, etc.).
+      -->
+      <UniqueName>AgusTOCPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="AgusTOC Publisher" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Publisher for AgusTOC solutions" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress />
+      <SupportingWebsiteUrl />
+      <CustomizationPrefix>agustoc</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true" />
+          <County xsi:nil="true" />
+          <Country xsi:nil="true" />
+          <Fax xsi:nil="true" />
+          <FreightTermsCode xsi:nil="true" />
+          <ImportSequenceNumber xsi:nil="true" />
+          <Latitude xsi:nil="true" />
+          <Line1 xsi:nil="true" />
+          <Line2 xsi:nil="true" />
+          <Line3 xsi:nil="true" />
+          <Longitude xsi:nil="true" />
+          <Name xsi:nil="true" />
+          <PostalCode xsi:nil="true" />
+          <PostOfficeBox xsi:nil="true" />
+          <PrimaryContactName xsi:nil="true" />
+          <ShippingMethodCode xsi:nil="true" />
+          <StateOrProvince xsi:nil="true" />
+          <Telephone1 xsi:nil="true" />
+          <Telephone2 xsi:nil="true" />
+          <Telephone3 xsi:nil="true" />
+          <TimeZoneRuleVersionNumber xsi:nil="true" />
+          <UPSZone xsi:nil="true" />
+          <UTCOffset xsi:nil="true" />
+          <Versions />
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true" />
+          <County xsi:nil="true" />
+          <Country xsi:nil="true" />
+          <Fax xsi:nil="true" />
+          <FreightTermsCode xsi:nil="true" />
+          <ImportSequenceNumber xsi:nil="true" />
+          <Latitude xsi:nil="true" />
+          <Line1 xsi:nil="true" />
+          <Line2 xsi:nil="true" />
+          <Line3 xsi:nil="true" />
+          <Longitude xsi:nil="true" />
+          <Name xsi:nil="true" />
+          <PostalCode xsi:nil="true" />
+          <PostOfficeBox xsi:nil="true" />
+          <PrimaryContactName xsi:nil="true" />
+          <ShippingMethodCode xsi:nil="true" />
+          <StateOrProvince xsi:nil="true" />
+          <Telephone1 xsi:nil="true" />
+          <Telephone2 xsi:nil="true" />
+          <Telephone3 xsi:nil="true" />
+          <TimeZoneRuleVersionNumber xsi:nil="true" />
+          <UPSZone xsi:nil="true" />
+          <UTCOffset xsi:nil="true" />
+          <Versions />
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <!--
+        type="80" = App Module.
+        The schemaName must match AppModule/UniqueName in customizations.xml.
+        behavior="0" = include the component as-is.
+      -->
+      <RootComponent type="80" schemaName="agustoc_QuoteManagementApp" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>
