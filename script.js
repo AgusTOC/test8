@@ -65,7 +65,7 @@ function renderProducts(filter = "") {
 
 // ===== CART =====
 function addToCart(id) {
-  const product = products.find(p => p.id === ids);
+  const product = products.find(p => p.id === id);
   if (!product) return;
   const existing = cart.find(i => i.id === id);
   if (existing) {
