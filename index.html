@@ -16,6 +16,7 @@
         <a href="#produk">Produk</a>
         <a href="#tentang">Tentang</a>
         <a href="#kontak">Kontak</a>
+        <a href="#" id="historyNavBtn">📋 Riwayat</a>
       </nav>
       <button class="cart-btn" id="cartBtn" aria-label="Buka keranjang">
         🛍️ Keranjang <span class="cart-count" id="cartCount">0</span>
@@ -140,6 +141,19 @@
           <button type="submit" class="btn-primary">Pesan Sekarang</button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- HISTORY MODAL -->
+  <div class="modal-overlay" id="historyOverlay">
+    <div class="modal modal-history" id="historyModal">
+      <div class="modal-history-header">
+        <h3>📋 Riwayat Pembelian</h3>
+        <button class="close-history" id="closeHistory" aria-label="Tutup riwayat">✕</button>
+      </div>
+      <div class="history-list" id="historyList">
+        <p class="cart-empty">Belum ada riwayat pembelian.</p>
+      </div>
     </div>
   </div>
 

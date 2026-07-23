@@ -17,6 +17,7 @@ const products = [
 // ===== STATE =====
 let cart = [];
 let activeFilter = "";
+let purchaseHistory = [];
 
 // ===== HELPERS =====
 function formatRupiah(n) {
@@ -167,11 +168,70 @@ function initContactForm() {
   });
 }
 
+// ===== HISTORY =====
+function openHistory() {
+  renderHistory();
+  document.getElementById("historyOverlay").classList.add("open");
+}
+function closeHistory() {
+  document.getElementById("historyOverlay").classList.remove("open");
+}
+
+function renderHistory() {
+  const listEl = document.getElementById("historyList");
+  if (purchaseHistory.length === 0) {
+    listEl.innerHTML = '<p class="cart-empty">Belum ada riwayat pembelian.</p>';
+    return;
+  }
+  listEl.innerHTML = purchaseHistory.slice().reverse().map((order, idx) => `
+    <div class="history-order">
+      <div class="history-order-header">
+        <span class="history-order-id">Pesanan #${purchaseHistory.length - idx}</span>
+        <span class="history-order-date">${order.date}</span>
+        <span class="history-order-total">${formatRupiah(order.total)}</span>
+      </div>
+      <div class="history-order-info">
+        <span>👤 ${order.name}</span>
+        <span>📞 ${order.phone}</span>
+        <span>📍 ${order.address}</span>
+        <span>💳 ${order.payment}</span>
+      </div>
+      <div class="history-order-items">
+        ${order.items.map(i => `
+          <div class="history-item">
+            <span>${i.icon} ${i.name}</span>
+            <span>${formatRupiah(i.price)} × ${i.qty}</span>
+            <span>${formatRupiah(i.price * i.qty)}</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join("");
+}
+
 // ===== CHECKOUT FORM =====
 function initCheckoutForm() {
   document.getElementById("checkoutForm").addEventListener("submit", e => {
     e.preventDefault();
     const name = document.getElementById("coName").value.trim();
+    const phone = document.getElementById("coPhone").value.trim();
+    const address = document.getElementById("coAddress").value.trim();
+    const paymentVal = document.getElementById("coPayment").value;
+    const paymentLabels = { transfer: "Transfer Bank", cod: "COD (Bayar di Tempat)", ewallet: "E-Wallet" };
+    const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const now = new Date();
+    const date = now.toLocaleDateString("id-ID", { day: "2-digit", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" });
+
+    purchaseHistory.push({
+      name,
+      phone,
+      address,
+      payment: paymentLabels[paymentVal] || paymentVal,
+      items: cart.map(i => ({ ...i })),
+      total,
+      date,
+    });
+
     closeCheckout();
     cart = [];
     updateCartUI();
@@ -194,5 +254,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("cancelCheckout").addEventListener("click", closeCheckout);
   document.getElementById("modalOverlay").addEventListener("click", e => {
     if (e.target === document.getElementById("modalOverlay")) closeCheckout();
+  });
+  document.getElementById("historyNavBtn").addEventListener("click", e => { e.preventDefault(); openHistory(); });
+  document.getElementById("closeHistory").addEventListener("click", closeHistory);
+  document.getElementById("historyOverlay").addEventListener("click", e => {
+    if (e.target === document.getElementById("historyOverlay")) closeHistory();
   });
 });
